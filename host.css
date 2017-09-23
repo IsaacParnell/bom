@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600');
+h1 {
+  display: block;
+  width: 100%
+}
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+}
+
+html {
+  background-color: black;
+}
+
+.col {
+  background-color: #292929;
+  position: absolute;
+  bottom: 10px;
+  top: 10px;
+  float: left;
+  width: 200px
+}
+
+.col ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.col ul li {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 30px;
+  background-color: #1B1B1B;
+  padding: 10px;
+}
+
+.col ul li:hover {
+  color: red;
+  background-color: grey;
+}
+
+button:hover {
+  color: blue;
+  background-color: white;
+
+}
+
+#score button {
+  width: 150px;
+  height: 50px;
+  font-size: 20px;
+  color: black;
+}
+
+#round button {
+  background-color: black;
+  width: 500px;
+  height: 50px;
+  font-size: 20px;
+}
+
+#console ul li {
+  font-size: 20px;
+}
+
+#cancelRound {
+  font-size: 30px;
+  width: 500px;
+  height: 100px;
+  background-color: grey;
+}
+
+#cancelRound:hover {
+  color: red;
+}
+#summary {
+    width: 500px;
+}
+
+#questionSelection li {
+  font-size: 15px;
+}
+
+#graham {
+  left: 230px;
+}
+
+#booth {
+  left: 450px;
+}
+
+#elliot {
+  left: 670px;
+}
+
+#wesley {
+  left: 890px;
+}
+#questionSelection {
+  left: 450px;
+}
+
+#console {
+ left: 1300px;
+ width: 300px;
+}
+
+#summary {
+  left: 670px;
+}
+
+#round {
+  margin-left:220px;
+}

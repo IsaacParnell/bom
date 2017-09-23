@@ -1,0 +1,143 @@
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="host.css">
+
+    <nav class="col">
+      <h1> NAVIGATION </h1>
+      <ul>
+        <li onclick="round()"> ROUND </li>
+        <li onclick="score()"> SCORE </li>
+      </ul>
+    </nav>
+  </head>
+
+  <body>
+    <div id="round">
+      <section id="groupSelection" class="col">
+        <h1> SELECT GROUP </h1>
+        <ul onclick="selectGroup()">
+          <li> YR7 </li>
+          <li> YR8 </li>
+          <li> YR9 </li>
+          <li> YR10 </li>
+          <li> YR11 </li>
+          <li> YR12 </li>
+        </ul>
+      </section>
+
+      <section id="questionSelection" class="col">
+        <h1> QUESTION </h1>
+        <ul onclick="selectQuestion()">
+          <li> What is PI? </li>
+          <li> CAnt hold us </li>
+          <li> pepe or no pepe? </li>
+          <li> WOULD YOU BELIVE YOUR EYES </li>
+        </ul>
+      </section>
+
+      <section id="summary" class="col">
+        <h1> SELECTION </h1>
+        <h2> Group: </h2>
+          <p id="groupDisplay"> none selected </p>
+        <h2> Question: </h2>
+          <p id="questionDisplay"> none selected </p>
+
+        <button> START 30 </button>
+        <button> START 60 </button> <br>
+
+        <button id="cancelRound"> CANCEL ROUND </button>
+      </section>
+
+      <section id="console" class="col">
+        <h1> CONSOLE </h1>
+        <ul id="consoleList">
+
+        </ul>
+      </section>
+    </div>
+
+    <div id="score">
+      <section id="graham" class="col">
+        <h1> GRAHAM </h1>
+        <h3> Answer: </h3>
+        <p id="g_ans"> </p>
+
+
+        <button onclick="g_correct()" class="correct"> CORRECT </button>
+        <button onclick="g_incorrect()" class="incorrect"> INCORRECT </button>
+
+        <h3> Score: </h3>
+        <p id="g_score"> </p>
+
+        <h3> Edit score: </h3>
+        <input type="text" return="false" id="g_editscore"> </input>
+        <button id="submitEdit" onclick="submitEdit()"> Submit Edit </button>
+
+        <button id="scoreRefresh" onclick="refreshScore()"> Refresh Score </button>
+
+      </section>
+
+      <section id="booth" class="col">
+        <h1> BOOTH </h1>
+      </section>
+
+      <section id="elliot" class="col">
+        <h1> ELLIOT </h1>
+      </section>
+
+      <section id="wesley" class="col">
+        <h1> WESLEY </h1>
+      </section>
+
+      <section id="console" class="col">
+        <h1> CONSOLE </h1>
+
+        <ul id="consoleList">
+
+        </ul>
+      </section>
+    </div>
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+  <script>
+  $("#round").css("display", "none");
+
+  function selectGroup(){
+    //TODO get <li> element clicked and submit it to the server to select ehe group
+  }
+
+  function selectQuestion(){
+    //TODO same as selectGroup but for questions
+  }
+  function g_correct(){
+    //TODO incorrect and correct for each house
+  }
+
+  function refreshScore(){
+    //TODO refresh scores
+  }
+
+  function submitEdit(){
+    //TODO get value from text input box and make it the teams score
+  }
+
+  function score(){
+    $("#round").css("display", "none");
+    $("#score").css("display", "inherit");
+  }
+
+  function round(){
+    //hide the score tab and display the round tab
+    $("#round").css("display", "inherit");
+    $("#score").css("display", "none");
+  }
+
+  function log(msg){
+    console.log(msg)
+    $("#consoleList").append("<li>" + msg + "</li>")
+  }
+
+  </script>
+</html>
