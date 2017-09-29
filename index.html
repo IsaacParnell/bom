@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  </head>
+
+  <body>
+    <h1 id=header> No group selected yet </h1>
+
+    <h2 id="question"> No Question Yet </h1>
+
+    <h3 id="instructions"> Waiting to start round... </h3>
+    <textarea id="answer"> </textarea> <br>
+
+    <button id="submit"> SUBMIT ANSWER </button>
+  </body>
+
+  <script>
+    var socket = io()
+
+    var house = "";
+    while(house == ""){
+      house = prompt("HOUSE CODE:")
+    }
+
+    socket.on("endRound", function(){
+      console.log("round ended");
+      $("textarea").val('');
+      $("textarea").css("background-color", "grey");
+      $("#question").html("No Question Yet");
+      $("#instructions").html("Waiting for next round to start...");
+    });
+
+    socket.on("round", function(q){
+      console.log("new round started with question: " + q);
+      $("textarea").val('');
+      $("textarea").css("background-color", "white");
+      $("#question").html(q);
+      $("#instructions").html("Type the Answer Below");
+    })
+
+    switch(house){
+      case "B":
+        $("#header").html("Booth");
+        $("#header").css("background-color", "blue");
+        $("#header").css("color", "white");
+      break;
+
+      case "E":
+        $("#header").html("Elliot");
+        $("#header").css("background-color", "green");
+        $("#header").css("color", "white");
+      break;
+
+      case "W":
+        $("#header").html("Wesley");
+        $("#header").css("background-color", "Yellow");
+      break;
+
+      case "G":
+        $("#header").html("Graham");
+        $("#header").css("background-color", "Red");
+        $("#header").css("color", "white");
+      break;
+
+      default:
+        $("#header").html("Invalid House");
+        $("#header").css("background-color", "black");
+        $("#header").css("color", "white");
+    }
+
+    socket.emit("houseUpdate", house);
+  </script>
+</html>

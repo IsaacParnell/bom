@@ -16,23 +16,19 @@
     <div id="round">
       <section id="groupSelection" class="col">
         <h1> SELECT GROUP </h1>
-        <ul onclick="selectGroup()">
-          <li> YR7 </li>
-          <li> YR8 </li>
-          <li> YR9 </li>
-          <li> YR10 </li>
-          <li> YR11 </li>
-          <li> YR12 </li>
+        <ul id="selectGroup">
+          <li id="7"> YR7 </li>
+          <li id="8"> YR8 </li>
+          <li id="9"> YR9 </li>
+          <li id="10"> YR10 </li>
+          <li id="11"> YR11 </li>
+          <li id="12"> YR12 </li>
         </ul>
       </section>
 
       <section id="questionSelection" class="col">
         <h1> QUESTION </h1>
-        <ul onclick="selectQuestion()">
-          <li> What is PI? </li>
-          <li> CAnt hold us </li>
-          <li> pepe or no pepe? </li>
-          <li> WOULD YOU BELIVE YOUR EYES </li>
+        <ul id="questionList">
         </ul>
       </section>
 
@@ -43,17 +39,12 @@
         <h2> Question: </h2>
           <p id="questionDisplay"> none selected </p>
 
-        <button> START 30 </button>
-        <button> START 60 </button> <br>
+        <button id="30"> START 30 </button>
+        <button id="60"> START 60 </button> <br>
 
         <button id="cancelRound"> CANCEL ROUND </button>
-      </section>
 
-      <section id="console" class="col">
-        <h1> CONSOLE </h1>
-        <ul id="consoleList">
-
-        </ul>
+        <timer id='timer'> 0s </timer>
       </section>
     </div>
 
@@ -61,64 +52,86 @@
       <section id="graham" class="col">
         <h1> GRAHAM </h1>
         <h3> Answer: </h3>
-        <p id="g_ans"> </p>
+        <p id="answer"> no answer yet... </p>
 
-
-        <button onclick="g_correct()" class="correct"> CORRECT </button>
-        <button onclick="g_incorrect()" class="incorrect"> INCORRECT </button>
+        <ul>
+          <li id="correct"> Correct </li>
+          <li id="incorrect"> Incorrect </li>
+        <ul>
 
         <h3> Score: </h3>
-        <p id="g_score"> </p>
+        <p id="score"> </p>
 
         <h3> Edit score: </h3>
         <input type="text" return="false" id="g_editscore"> </input>
-        <button id="submitEdit" onclick="submitEdit()"> Submit Edit </button>
-
-        <button id="scoreRefresh" onclick="refreshScore()"> Refresh Score </button>
-
+        <button id="submitEdit" onclick="submitEdit(g)"> Submit Edit </button>
       </section>
 
-      <section id="booth" class="col">
-        <h1> BOOTH </h1>
-      </section>
 
-      <section id="elliot" class="col">
-        <h1> ELLIOT </h1>
-      </section>
-
-      <section id="wesley" class="col">
-        <h1> WESLEY </h1>
-      </section>
-
-      <section id="console" class="col">
-        <h1> CONSOLE </h1>
-
-        <ul id="consoleList">
-
-        </ul>
-      </section>
     </div>
   </body>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
-  <script>
-  $("#round").css("display", "none");
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="host.js"></script>
 
-  function selectGroup(){
-    //TODO get <li> element clicked and submit it to the server to select ehe group
-  }
+  <script>
+  var socket = io();
+
+  var questions = [];
+
+  var currentGroup = -1;
+  var currentQuestion = -1;
+  socket.emit("host");
+  $("#score").css("display", "none");
+
+  $("#cancelRound").click(function(){
+    socket.emit("cancelRound");
+  });
+
+  $("#selectGroup li").click(function(){
+    currentGroup = $(this).attr('id');
+    $("#groupDisplay").html(currentGroup)
+
+    //SHOW question - reads questions.csv to get the questions
+    $.ajax({
+      url: 'questions.csv',
+      dataType: 'text',
+    }).done(function(data){
+
+      //process data, splitting the csv file into an array
+      data = data.split(/\r\n|\n/);
+
+      for(var i = 0; i < data.length; i++){
+        data[i] = data[i].split(",");
+      }
+
+      questions = data;
+
+      $("#questionList").empty();
+
+      data.forEach(function(item){
+        if(item[0] == currentGroup){
+           $("#questionList").append("<li id=" + item[1] + ">" + item[2] + "</li>");
+           $("#questionList li").click(function(){
+             // update the question display
+             $("#questionDisplay").html($(this).text());
+           });
+         }
+      });
+    });
+  });
+
+
 
   function selectQuestion(){
     //TODO same as selectGroup but for questions
   }
   function g_correct(){
     //TODO incorrect and correct for each house
-  }
 
-  function refreshScore(){
-    //TODO refresh scores
+    //REDO use jquery li instead of individual functions
   }
-
   function submitEdit(){
     //TODO get value from text input box and make it the teams score
   }
@@ -134,10 +147,6 @@
     $("#score").css("display", "none");
   }
 
-  function log(msg){
-    console.log(msg)
-    $("#consoleList").append("<li>" + msg + "</li>")
-  }
 
   </script>
 </html>
