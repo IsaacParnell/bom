@@ -36,4 +36,9 @@ button {
   color: black;
   font-size: 50px;
   display: block;
+  border: none;
+}
+
+button:disabled {
+  background-color: black;
 }

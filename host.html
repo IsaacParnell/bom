@@ -1,10 +1,12 @@
 <html>
 
   <head>
+    <title> BOM SHOW HOST </title>
     <link rel="stylesheet" type="text/css" href="host.css">
 
     <nav class="col">
-      <h1> NAVIGATION </h1>
+      <h1 style="font-size: 20px;"> BOM_show_host_v1 </h1>
+      <h3 style="font-size: 15px;"> by matt hilton </h3>
       <ul>
         <li onclick="round()"> ROUND </li>
         <li onclick="score()"> SCORE </li>
@@ -50,8 +52,8 @@
 
     <div id="score">
       <section id="graham" class="col">
-        <h1> GRAHAM </h1>
-        <h3> Answer: </h3>
+        <h1 style="color: red;"> GRAHAM </h1>
+        <h3> Team Answer: </h3>
         <p id="answer"> no answer yet... </p>
 
         <ul>
@@ -64,11 +66,69 @@
 
         <h3> Edit score: </h3>
         <input type="text" return="false" id="g_editscore"> </input>
-        <button id="submitEdit" onclick="submitEdit(g)"> Submit Edit </button>
+        <button id="submitEdit"> Submit Edit </button>
       </section>
 
+      <section id="elliot" class="col">
+        <h1 style="color: green;"> ELLIOT </h1>
+        <h3> Team Answer: </h3>
+        <p id="answer"> no answer yet... </p>
 
+        <ul>
+          <li id="correct"> Correct </li>
+          <li id="incorrect"> Incorrect </li>
+        <ul>
+
+        <h3> Score: </h3>
+        <p id="score"> </p>
+
+        <h3> Edit score: </h3>
+        <input type="text" return="false" id="e_editscore"> </input>
+        <button id="submitEdit"> Submit Edit </button>
+      </section>
+
+      <section id="wesley" class="col">
+        <h1 style="color: yellow;"> WESLEY </h1>
+        <h3> Team Answer: </h3>
+        <p id="answer"> no answer yet... </p>
+
+        <ul>
+          <li id="correct"> Correct </li>
+          <li id="incorrect"> Incorrect </li>
+        <ul>
+
+        <h3> Score: </h3>
+        <p id="score"> </p>
+
+        <h3> Edit score: </h3>
+        <input type="text" return="false" id="w_editscore"> </input>
+        <button id="submitEdit"> Submit Edit </button>
+      </section>
+
+      <section id="booth" class="col">
+        <h1 style="color: blue;"> BOOTH </h1>
+        <h3> Team Answer: </h3>
+        <p id="answer"> no answer yet... </p>
+
+        <ul>
+          <li id="correct"> Correct </li>
+          <li id="incorrect"> Incorrect </li>
+        <ul>
+
+        <h3> Score: </h3>
+        <p id="score"> </p>
+
+        <h3> Edit score: </h3>
+        <input type="text" return="false" id="b_editscore"> </input>
+        <button id="submitEdit"> Submit Edit </button>
+      </section>
+
+      <section id="display" class="col">
+        <h1> ACCEPTED ANSWERS </h1>
+        
+      </section>
     </div>
+
   </body>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
@@ -121,20 +181,6 @@
       });
     });
   });
-
-
-
-  function selectQuestion(){
-    //TODO same as selectGroup but for questions
-  }
-  function g_correct(){
-    //TODO incorrect and correct for each house
-
-    //REDO use jquery li instead of individual functions
-  }
-  function submitEdit(){
-    //TODO get value from text input box and make it the teams score
-  }
 
   function score(){
     $("#round").css("display", "none");

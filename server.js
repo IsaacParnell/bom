@@ -13,6 +13,11 @@ var clientList = [];
 io.on('connection', function(socket){
   console.log(socket.id + " connected")
 
+  socket.on("answer", function(res){
+      console.log("Got answer from " + res.house + ": " + res.answer);
+      io.emit("ans", res);
+  });
+
   socket.on('newRound', function(res){
       io.emit("round", res.text)
 
@@ -28,12 +33,16 @@ io.on('connection', function(socket){
           io.emit("endRound")
         }
       }, 1000)
+
+      socket.on('cancelRound', function(){
+        io.emit("endRound")
+        console.log("round cancelled by host!")
+        clearInterval(timer);
+        io.emit("timerUpdate", 0);
+      });
   });
 
-  socket.on('cancelRound', function(){
-    io.emit("endRound")
-    console.log("round cancelled by host!")
-  });
+
 
   socket.on('houseUpdate', function(house){
     switch(house){
