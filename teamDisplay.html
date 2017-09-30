@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600');
+      html {
+        background-color: black;
+      }
+
+      * {
+        font-family: 'Source Sans Pro', sans-serif;
+      }
+
+      h1 {
+        background-color: white;
+        top: 50%;
+        position: absolute;
+        left: 50%;
+        align-items: center;
+        text-align:center;
+        transform: translate(-50%, -50%);
+
+        font-size: 70px;
+      }
+
+    </style>
+
+    <title> BATTLE OF THE MINDS </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  </head>
+
+  <body>
+
+    <h1> BATTLE OF THE MINDS <i id="icon"> </h1>
+    <script>
+    var socket = io()
+
+    var house = "";
+    while(house == ""){
+      house = prompt("HOUSE CODE:")
+    }
+
+    switch(house){
+      case "B":
+        $("h1")
+        .css("background-color", "blue")
+        .css("color", "white")
+      break;
+
+      case "E":
+        $("h1")
+        .css("background-color", "green")
+        .css("color", "white")
+      break;
+
+      case "G":
+        $("h1")
+        .css("background-color", "red")
+        .css("color", "white")
+      break;
+
+      case "W":
+        $("h1")
+        .css("background-color", "yellow")
+        .css("color", "black")
+      break;
+    }
+
+    socket.on("correct", function(h){
+      if(h.toUpperCase() == house){
+        $("h1").val('<i id="icon">')
+        $("#icon")
+        .css('display', 'inline')
+        .removeClass()
+        .addClass("fa fa-check")
+        .css('font-size', "700px")
+      }
+    });
+
+    socket.on("incorrect", function(h){
+      if(h.toUpperCase() == house){
+        $("h1").val('<i id="icon">')
+        $("#icon")
+        .css('display', 'inline')
+        .removeClass()
+        .addClass("fa fa-times")
+        .css('font-size', "700px")
+      }
+    });
+
+    socket.on("round", function(res){
+      $("#icon")
+      .removeClass()
+      .css('display', 'none')
+    });
+
+    socket.on("clearTeamDisplay", function(){
+      $("#icon")
+      .removeClass()
+      .css('display', 'none')
+    })
+
+    </script>
+  </body>
+</html>

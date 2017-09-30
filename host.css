@@ -17,6 +17,9 @@ timer {
   font-size: 100px;
 }
 
+input {
+  color: black;
+}
 .col {
   background-color: #292929;
   position: absolute;
@@ -119,4 +122,8 @@ button:hover {
 
 #display {
   left: 1110px;
+}
+
+#controls {
+  left: 1350px;
 }

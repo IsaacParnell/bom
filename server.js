@@ -7,15 +7,52 @@ server.listen(process.env.PORT || 80);
 
 app.use('/', express.static(__dirname, + '/'));
 
+var scores = {};
+
+scores["g"] = 0;
+scores["e"] = 0;
+scores["w"] = 0;
+scores["b"] = 0;
+
 var host = "";
 var clientList = [];
 
 io.on('connection', function(socket){
   console.log(socket.id + " connected")
+  io.emit('scores', scores);
+
+  socket.on("editScore", function(res){
+      console.log("Changing score of house: " + res.house + " from " + scores[res.house] + " to " + res.score)
+      scores[res.house] = parseInt(res.score);
+      io.emit("scores", scores);
+  });
 
   socket.on("answer", function(res){
       console.log("Got answer from " + res.house + ": " + res.answer);
       io.emit("ans", res);
+  });
+
+  socket.on('incorrect', function(house){
+    //TODO right/wrong display page (hooks into this emit)
+    io.emit('incorrect', house);
+  });
+
+  socket.on('correct', function(house){
+    //get the current score and add 10
+    scores[house] += 10;
+
+    //TODO right/wrong display page (hooks into this emit)
+    io.emit('correct', house)
+
+    //TODO graph page that displays the scores (hooks into this emit)
+    //TODO update score on host display
+    io.emit('scores', scores)
+
+    console.log(scores);
+  });
+
+  socket.on("clearTeamDisplay", function(){
+      io.emit("clearTeamDisplay");
   });
 
   socket.on('newRound', function(res){
