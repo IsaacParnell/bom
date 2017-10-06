@@ -59,10 +59,31 @@ socket.on('scores', function(scores){
 });
 
 socket.on("round", function(res){
-  //TODO show accepted answers on the side, maybe put them into the questions.csv file and read them directly???
+
+  $.ajax({
+    url: 'questions.csv',
+    dataType: 'text',
+  }).done(function(data){
+    data = data.split(/\r\n|\n/);
+
+    for(var i = 0; i < data.length; i++){
+      data[i] = data[i].split(",");
+    }
+    for(var i = 0; i < data.length; i++){
+      item = data[i]
+      if(item[0] == currentGroup && $("#questionDisplay").html() == item[2]){
+        //item[3] here is the answer for the current question
+        console.log("ANSWER for CURRENT QUESTION: " + item[3])
+        $("#acceptedAnswer").html("<p>" + item[3] + "</p>")
+      }
+    }
+  })
+
+
+
   console.log('new round started, clearing answers...')
   $("#score p")
-  .html('no answer yet')
+  .html('no score yet')
   .css('color', 'white')
 });
 
@@ -71,7 +92,6 @@ socket.on("timerUpdate", function(t){
 });
 
 socket.on("ans", function(res){
-  //TODO update answer page
   switch(res.house){
     case "B":
       $("#booth #answer")

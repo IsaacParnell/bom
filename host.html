@@ -125,7 +125,7 @@
 
       <section id="display" class="col">
         <h1> ACCEPTED ANSWERS </h1>
-
+        <p id="acceptedAnswer"> no question selected... </p>
       </section>
 
       <section id="controls" class="col">
@@ -181,6 +181,7 @@
            $("#questionList li").click(function(){
              // update the question display
              $("#questionDisplay").html($(this).text());
+             $("#display #acceptedAnswer").val
            });
          }
       });

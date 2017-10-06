@@ -20,7 +20,7 @@
         align-items: center;
         text-align:center;
         transform: translate(-50%, -50%);
-
+        padding: 20px;
         font-size: 70px;
       }
 
@@ -45,43 +45,48 @@
     switch(house){
       case "B":
         $("h1")
-        .css("background-color", "blue")
-        .css("color", "white")
+        .css("background-color", "#3385ff")
+        .css("color", "black")
       break;
 
       case "E":
         $("h1")
-        .css("background-color", "green")
-        .css("color", "white")
+        .css("background-color", "#33ff33")
+        .css("color", "black")
       break;
 
       case "G":
         $("h1")
-        .css("background-color", "red")
-        .css("color", "white")
+        .css("background-color", "#ff3333")
+        .css("color", "black")
       break;
 
       case "W":
         $("h1")
-        .css("background-color", "yellow")
+        .css("background-color", "#ffff33")
         .css("color", "black")
       break;
     }
 
+    socket.on("timerUpdate", function(t){
+        $("h1").html(t)
+        console.log(t)
+    });
+
     socket.on("correct", function(h){
       if(h.toUpperCase() == house){
-        $("h1").val('<i id="icon">')
         $("#icon")
         .css('display', 'inline')
         .removeClass()
         .addClass("fa fa-check")
         .css('font-size', "700px")
+
       }
     });
 
     socket.on("incorrect", function(h){
       if(h.toUpperCase() == house){
-        $("h1").val('<i id="icon">')
+
         $("#icon")
         .css('display', 'inline')
         .removeClass()

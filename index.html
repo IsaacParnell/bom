@@ -59,6 +59,7 @@
         $("#submit").html("SUBMIT ANSWER ("+t+")");
     });
 
+    //TODO make a way for the clients to see if they got the question right?....
     socket.on("endRound", function(){
       console.log("round ended");
       endRound();
@@ -73,27 +74,27 @@
       case "B":
         $("#header")
         .html("Booth")
-        .css("background-color", "blue")
+        .css("background-color", "#3385ff")
         .css("color", "white");
       break;
 
       case "E":
         $("#header")
         .html("Elliot")
-        .css("background-color", "green")
+        .css("background-color", "#33ff33")
         .css("color", "white");
       break;
 
       case "W":
         $("#header")
         .html("Wesley")
-        .css("background-color", "Yellow");
+        .css("background-color", "#ffff33");
       break;
 
       case "G":
         $("#header")
         .html("Graham")
-        .css("background-color", "Red")
+        .css("background-color", "#ff3333")
         .css("color", "white");
       break;
 

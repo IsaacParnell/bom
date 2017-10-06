@@ -33,19 +33,13 @@ io.on('connection', function(socket){
   });
 
   socket.on('incorrect', function(house){
-    //TODO right/wrong display page (hooks into this emit)
     io.emit('incorrect', house);
   });
 
   socket.on('correct', function(house){
     //get the current score and add 10
     scores[house] += 10;
-
-    //TODO right/wrong display page (hooks into this emit)
     io.emit('correct', house)
-
-    //TODO graph page that displays the scores (hooks into this emit)
-    //TODO update score on host display
     io.emit('scores', scores)
 
     console.log(scores);

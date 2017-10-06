@@ -1,0 +1,85 @@
+<html>
+  <title> SCORE UPDATE - BOM </title>
+  <canvas id="myChart" width="100%" height="46%"></canvas>
+
+<style>
+  * {
+    background-color: black;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.js"></script>
+<script>
+  var socket = io();
+
+  socket.on("scores", function(score){
+    //update the chart datasets to new score values
+    myChart.data.datasets[0].data[0] = score["g"];
+    myChart.data.datasets[0].data[1] = score["b"];
+    myChart.data.datasets[0].data[2] = score["e"];
+    myChart.data.datasets[0].data[3] = score["w"];
+
+    myChart.update();
+  });
+
+  var ctx = $("#myChart");
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["GRAHAM", "BOOTH", "ELLIOT", "WESLEY"],
+        datasets: [{
+            label: 'SCORE',
+            data: [12, 19, 3, 5],
+            backgroundColor: [
+                '#ff3333',
+                '#3385ff',
+                '#33ff33',
+                '#ffff33',
+            ],
+
+        }]
+    },
+    options: {
+        layout: {
+          padding: 10,
+        },
+        responsive: true,
+        maintainAspectRatio: true,
+        title: {
+            display: true,
+            fontColor: 'white',
+            text: 'BATTLE OF THE MINDS',
+            fontSize: 50,
+        },
+
+        defaultFontFamily: 'Source Sans Pro',
+        defaultFontStyle: 'sans-serif',
+        legend: {
+          display: false,
+        },
+        scales: {
+
+            yAxes: [{
+                ticks: {
+                  fontColor: 'white',
+                    beginAtZero:true
+                }
+            }],
+
+            xAxes: [{
+                ticks: {
+                  fontColor: 'white',
+                  fontSize: 20,
+                }
+            }]
+        }
+    }
+});
+
+console.log(myChart.data.datasets[0].data)
+</script>
+
+</html>

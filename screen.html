@@ -1,0 +1,68 @@
+<html>
+<title> BATTLE OF THE MINDS </title>
+
+<h1 id="display"> BATTLE OF THE MINDS 2018</h1>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600');
+  * {
+    background-color: black;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  #display {
+    background-color: white;
+    color: black;
+
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    align-items: center;
+    text-align: center;
+
+    transform: translate(-50%, -50%);
+    padding: 40px;
+    font-size: 500%;
+
+    margin: 0px;
+  }
+
+</style>
+
+<script>
+  var socket = io();
+  var currentq = "";
+  var defaultMsg = "BATTLE OF THE MINDS 2018"
+
+  socket.on("round", function(q){
+    console.log(q)
+    currentq = q;
+  });
+
+  socket.on("endRound", function(){
+    $("#display").html(defaultMsg)
+  });
+
+  socket.on("timerUpdate", function(t){
+    //wil display the question until there are 15 seconds left...
+      if(t < 15 && t != 0){
+        $("#display")
+        .html(t)
+        .css("font-size", "1000%");
+      } else if(t == 0){
+        $("#display")
+        .html(defaultMsg)
+        .css("font-size", "500%");
+      } else {
+        $("#display")
+        .html(currentq)
+        .css("font-size", "500%");;
+      }
+  });
+
+</script>
+
+</html>
