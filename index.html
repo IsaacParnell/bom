@@ -26,7 +26,7 @@
     }
 
       //TODO add a way to show if the team got it right on their screen...
-    
+
     $("#submit").click(function(){
       var ans = $("textarea").val();
       console.log(ans)
@@ -59,6 +59,7 @@
         $("#submit").html("SUBMIT ANSWER ("+t+")");
     });
 
+      //TODO display answer on screen on round round end
     //TODO make a way for the clients to see if they got the question right?....
     socket.on("endRound", function(){
       console.log("round ended");

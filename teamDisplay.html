@@ -36,6 +36,7 @@
     <h1> BATTLE OF THE MINDS <i id="icon"> </h1>
     <script>
     var socket = io()
+    var disableTime = false;
 
     var house = "";
     while(house == ""){
@@ -69,24 +70,28 @@
     }
 
     socket.on("timerUpdate", function(t){
+      if(!disableTime){
         $("h1").html(t)
         console.log(t)
+      }
     });
 
     socket.on("correct", function(h){
+      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
       if(h.toUpperCase() == house){
+        disableTime = true;
         $("#icon")
         .css('display', 'inline')
         .removeClass()
         .addClass("fa fa-check")
         .css('font-size', "700px")
-
       }
     });
 
     socket.on("incorrect", function(h){
+      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
       if(h.toUpperCase() == house){
-
+        disableTime = true;
         $("#icon")
         .css('display', 'inline')
         .removeClass()
@@ -96,16 +101,19 @@
     });
 
     socket.on("round", function(res){
+      disableTime = false;
       $("#icon")
       .removeClass()
       .css('display', 'none')
     });
 
+    //TODO display answer on screen on round round end
     socket.on("clearTeamDisplay", function(){
       $("#icon")
       .removeClass()
       .css('display', 'none')
     })
+
 
     </script>
   </body>
