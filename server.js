@@ -45,13 +45,21 @@ io.on('connection', function(socket){
     console.log(scores);
   });
 
+  socket.on("hostMessage", function(m){
+    console.log("new message for host " + m);
+    io.emit("hostMessage", m);
+  });
+  socket.on("clientMessage", function(m){
+      console.log("new message for client: " + m);
+      io.emit("clientMessage", m);
+  });
+
   socket.on("clearTeamDisplay", function(){
       io.emit("clearTeamDisplay");
   });
 
   socket.on('newRound', function(res){
-      io.emit("round", res.text)
-
+      io.emit("round", res.text);
       var t = res.t;
       var timer = setInterval(function(){
         t--;

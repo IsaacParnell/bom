@@ -1,0 +1,140 @@
+<html>
+<header>
+  <title> BOM - CENTRE STAGE </title>
+
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600');
+
+  * {
+    background-color: black;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+  }
+
+  body {
+    margin: 0px;
+  }
+
+  #bottombar {
+    background-color: grey;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 10%;
+
+    text-align: center;
+    font-size: 250%;
+  }
+
+  button {
+    border-style: none;
+    background-color: white;
+    color: black;
+  }
+
+  #acknowledge {
+    width: 100%;
+    height: 40%;
+    font-size: 200%;
+  }
+
+  #yes, #no, #maybe, #soon {
+    width: 25%;
+    height: 15%;
+    font-size: 150%;
+    padding: 0px;
+    float: left;
+  }
+
+  button {
+    background-color: black;
+    color: white
+  }
+  button:hover {
+    color: black;
+    background-color: white;
+  }
+
+  h1 {
+    background-color: blue;
+    margin: 0px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    color: white;
+    font-size: 300%;
+    border: none;
+  }
+
+  #sendMessage {
+    width: 100%;
+    height: 15%;
+    font-size: 150%;
+  }
+
+  </style>
+
+</header>
+
+<body>
+
+  <button id="acknowledge">  </button>
+
+  <h1> PRESET RESPONSES </h1>
+  <button id="yes" onclick="message('yes')"> YES </button>
+  <button id="no" onclick="message('no')"> NO </button>
+  <button id="maybe" onclick="message('maybe')"> MAYBE </button>
+  <button id="soon" onclick="message('soon')"> SOON </button>
+
+  <h1> CUSTOM MESSAGE </h1>
+  <textarea id="message"> </textarea> <br>
+  <button id="sendMessage"> SEND </button>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script>
+      var socket = io();
+      var currentMessage = "";
+
+      function message(m){
+          console.log(m);
+          socket.emit("hostMessage", m);
+      };
+
+      $("#sendMessage").click(function(){
+        var message = $("#message").val();
+        console.log(message);
+        socket.emit("hostMessage", message);
+        $("#message").val('');
+      })
+
+      socket.on("clientMessage", function(m){
+        currentMessage = m;
+        $("#acknowledge").html("MESSAGE: <br>" + currentMessage + " <br> Press To Acknowledge");
+        console.log(currentMessage);
+
+        $("#acknowledge").click(function(){
+            clearInterval(x);
+            $("#acknowledge").html("MESSAGE: <br>" + currentMessage);
+        });
+        //this just makes the button flash until its pressed
+        var x = setInterval(function(){
+          $("#acknowledge")
+          .css('background-color', 'white')
+          .css('color', 'black')
+
+          setTimeout(function(){
+            $("#acknowledge")
+            .css('background-color', 'black')
+            .css('color', 'white')
+          }, 500)
+        }, 1000)
+
+      })
+    </script>
+  </body>
+</html>

@@ -17,6 +17,15 @@ function newRound(timeLimit, questionText){
   socket.emit("newRound", {t: timeLimit, text: questionText})
 }
 
+socket.on("hostMessage", function(m){
+  console.log(m);
+  alertify
+  .delay(0)
+  .closeLogOnClick(true)
+  .log("Message: " + m);
+  $("#recieved").append("<li>" + m + "</li>");
+})
+
 $("#graham #correct").click(function(){
   correct("g");
 })

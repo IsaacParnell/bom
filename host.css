@@ -13,6 +13,9 @@ html {
   background-color: black;
 }
 
+#comm {
+  display: none;
+}
 timer {
   font-size: 100px;
 }
@@ -50,15 +53,32 @@ input {
 button:hover {
   color: blue;
   background-color: white;
-
 }
 
+#recieved li {
+  font-size: 20px;
+}
+
+#comm textarea {
+  background-color: #1B1B1B;
+  color: white;
+  width: 96%;
+  height: 50%;
+  font-size: 150%;
+  border: none;
+  margin: 2%;
+}
 .correct {
   background-color: green;
 }
 
 .incorrect {
   background-color: red;
+}
+
+#comm button {
+  background-color: black;
+  width: 100%;
 }
 
 #score button {
@@ -91,6 +111,14 @@ button:hover {
 
 #questionSelection li {
   font-size: 15px;
+}
+
+#sendMessage {
+  left: 230px;
+}
+
+#recieveMessage {
+  left: 450px;
 }
 
 #graham {

@@ -10,6 +10,7 @@
       <ul>
         <li onclick="round()"> ROUND </li>
         <li onclick="score()"> SCORE </li>
+        <li onclick="comm()"> COMM </li>
       </ul>
     </nav>
   </head>
@@ -134,8 +135,24 @@
       </section>
     </div>
 
+    <div id="comm">
+        <section id="sendMessage" class="col">
+          <h1> SEND </h1>
+          <textarea id="messageInput"> </textarea> <br>
+          <button onclick="sendMessage()"> Send Message </button>
+        </section>
+
+        <section id="recieveMessage" class="col">
+          <h1> RECIEVE </h1>
+          <button onclick="clearMessages()"> Clear Messages </button>
+          <ul id="recieved">
+          </ul>
+        </section>
+    </div>
+
   </body>
 
+  <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="host.js"></script>
@@ -187,16 +204,34 @@
       });
     });
   });
+  function sendMessage(){
+    var message = $("#messageInput").val();
+    console.log(message)
+    socket.emit("clientMessage", message);
+    $("#messageInput").val('');
+  }
+  
+  function clearMessages(){
+    $("#recieved").empty();
+  }
 
   function score(){
     $("#round").css("display", "none");
     $("#score").css("display", "inherit");
+    $("#comm").css("display", "none");
   }
 
   function round(){
     //hide the score tab and display the round tab
     $("#round").css("display", "inherit");
     $("#score").css("display", "none");
+    $("#comm").css("display", "none");
+  }
+
+  function comm(){
+    $("#score").css("display", "none");
+    $("#round").css("display", "none");
+    $("#comm").css("display", "inherit");
   }
 
 
