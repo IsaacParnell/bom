@@ -1,13 +1,17 @@
+
+
 var express = require('express');
-    app = express();
-    server = require('http').createServer(app);
-    io = require('socket.io').listen(server);
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+app.use(express.static('public'));
 
-var path = require('path');
+//Serves all the request which includes /images in the url from Images folder
+app.use('/public', express.static(__dirname + '/public'));
 
-server.listen(process.env.PORT || 80);
+var server = app.listen(process.env.PORT || 80);
 
-app.use(express.static('public'))
+
 
 var scores = {};
 
