@@ -7,7 +7,7 @@ var path = require('path');
 
 server.listen(process.env.PORT || 80);
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'))
 
 var scores = {};
 
