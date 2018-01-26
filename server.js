@@ -2,11 +2,10 @@ var express = require('express');
     app = express();
     server = require('http').createServer(app);
     io = require('socket.io').listen(server);
-var path = require('path');
+
 server.listen(process.env.PORT || 80);
 
-app.use(express.static(path.join(__dirname, 'public')));
-//app.use('/', express.static(__dirname, + '/'));
+app.use('/', express.static(__dirname, + '/'));
 
 var scores = {};
 
