@@ -92,7 +92,7 @@ socket.on("round", function(res){
 
   console.log('new round started, clearing answers...')
   $("#score p")
-  .html('no score yet')
+  .html('no answer yet')
   .css('color', 'white')
 });
 

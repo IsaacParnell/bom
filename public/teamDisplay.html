@@ -21,7 +21,7 @@
         text-align:center;
         transform: translate(-50%, -50%);
         padding: 20px;
-        font-size: 70px;
+        font-size: 85px;
       }
 
     </style>
@@ -77,8 +77,9 @@
     });
 
     socket.on("correct", function(h){
-      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
+
       if(h.toUpperCase() == house){
+        $("h1").html('BATTLE OF THE MINDS <i id="icon">')
         disableTime = true;
         $("#icon")
         .css('display', 'inline')
@@ -89,8 +90,9 @@
     });
 
     socket.on("incorrect", function(h){
-      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
+
       if(h.toUpperCase() == house){
+        $("h1").html('BATTLE OF THE MINDS <i id="icon">')
         disableTime = true;
         $("#icon")
         .css('display', 'inline')
@@ -107,11 +109,11 @@
       .css('display', 'none')
     });
 
-    //TODO display answer on screen on round round end
     socket.on("clearTeamDisplay", function(){
       $("#icon")
       .removeClass()
       .css('display', 'none')
+      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
     })
 
 
