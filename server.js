@@ -1,21 +1,12 @@
-var express = require('express');//Importing Express
-var app = express();//Getting App From Express
-var fs = require('fs');//Importing File System Module To Access Files
-const port = process.env.PORT || 80;//Creating A Constant For Providing The Port
-//Routing Request : http://localhost:port/
-app.get('/',function(request,response){
-  //Telling Browser That The File Provided Is A HTML File
-  response.writeHead(200,{"Content-Type":"text/html"});
-  //Passing HTML To Browser
-  response.write(fs.readFileSync("./public/index.html"));
-  //Ending Response
-  response.end();
-})
-//Routing To Public Folder For Any Static Context
-app.use(express.static(__dirname + '/public'));
-console.log("Server Running At:localhost:"+port);
-var io = require('socket.io').listen(app.listen(port));//Telling Express+Socket.io App To Listen To Port
+var express = require('express');
+    app = express();
+    server = require('http').createServer(app);
+    io = require('socket.io').listen(server);
+var path = require('path');
+server.listen(process.env.PORT || 80);
 
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/', express.static(__dirname, + '/'));
 
 var scores = {};
 
