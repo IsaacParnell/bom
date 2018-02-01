@@ -2,7 +2,7 @@ var express = require('express');
     app = express();
     server = require('http').createServer(app);
     io = require('socket.io').listen(server);
-
+    path = require('path');
 server.listen(process.env.PORT || 80);
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
