@@ -43,6 +43,24 @@
       .prop('disabled', true)
       .html("SUBMIT ANSWER");
     }
+    
+    socket.on("correct", function(h){
+      if(h == house) {
+        $("#body").css('background-color', green);
+      }
+    });
+    
+    socket.on("incorrect", function(h){
+      if(h == house) {
+        $("#body").css('background-color', red);
+      }
+    });
+    
+    socket.on("clearTeamDisplay", function(){
+      $("#body").css('background-color' , black);
+    });
+    
+    
 
     function startRound(q){
       $("textarea")
