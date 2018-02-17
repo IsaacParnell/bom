@@ -33,15 +33,14 @@ io.on('connection', function(socket){
   });
 
   socket.on('incorrect', function(house){
-    io.emit('incorrect', house);
+    io.emit("incorrect", house);
   });
 
   socket.on('correct', function(house){
     //get the current score and add 10
     scores[house] += 10;
-    io.emit('correct', house)
+    io.emit("correct", house)
     io.emit('scores', scores)
-
     console.log(scores);
   });
 

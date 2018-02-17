@@ -42,3 +42,19 @@ button {
 button:disabled {
   background-color: black;
 }
+
+#answerCheck {
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+
+  text-align: center;
+  width: 100%;
+  height: 50px;
+}
+
+#answerCheck h4 {
+  color: black;
+  padding: 10px;
+  font-size: 25px;
+}

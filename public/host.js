@@ -68,7 +68,6 @@ socket.on('scores', function(scores){
 });
 
 socket.on("round", function(res){
-
   $.ajax({
     url: 'questions.csv',
     dataType: 'text',
@@ -87,8 +86,6 @@ socket.on("round", function(res){
       }
     }
   })
-
-
 
   console.log('new round started, clearing answers...')
   $("#score p")

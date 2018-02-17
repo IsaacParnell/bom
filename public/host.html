@@ -26,6 +26,7 @@
           <li id="10"> YR10 </li>
           <li id="11"> YR11 </li>
           <li id="12"> YR12 </li>
+          <li id="SONG"> SONG </li>
         </ul>
       </section>
 
@@ -210,7 +211,7 @@
     socket.emit("clientMessage", message);
     $("#messageInput").val('');
   }
-  
+
   function clearMessages(){
     $("#recieved").empty();
   }

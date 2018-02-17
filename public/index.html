@@ -15,6 +15,8 @@
     <textarea id="answer"> </textarea> <br>
 
     <button id="submit" disabled> SUBMIT ANSWER </button>
+
+    <div id="answerCheck"> <h4> Waiting to start round... </h4> </div>
   </body>
 
   <script>
@@ -42,25 +44,40 @@
       $("#submit")
       .prop('disabled', true)
       .html("SUBMIT ANSWER");
+
+      $("#answerCheck").css('background-color', "white");
+      $("#answerCheck h4").html("Waiting for answer check...")
     }
-    
+
     socket.on("correct", function(h){
-      if(h == house) {
-        $("#body").css('background-color', green);
+      if(h.toUpperCase() == house) {
+        console.log("previous answer correct")
+        //TODO something else
+        $("#answerCheck").css('background-color', "#33ff33");
+        $("#answerCheck h4").html("Answer Marked as Correct!")
       }
-    });
-    
+    })
+
     socket.on("incorrect", function(h){
-      if(h == house) {
-        $("#body").css('background-color', red);
+      if(h.toUpperCase() == house) {
+        console.log("previous answer incorrect")
+        //TODO something else
+        $("#answerCheck").css('background-color', "#ff3333");
+        $("#answerCheck h4").html("Answer Marked as Incorrect")
       }
-    });
-    
+    })
+
+
+
     socket.on("clearTeamDisplay", function(){
-      $("#body").css('background-color' , black);
+      console.log("clearing background as team display is cleared")
+      $("body").css('background-color' , "black");
+
+      $("#answerCheck").css('background-color', "white");
+      $("#answerCheck h4").html("Waiting to start round...")
     });
-    
-    
+
+
 
     function startRound(q){
       $("textarea")
@@ -69,6 +86,8 @@
       $("#question").html(q);
       $("#instructions").html("Type the Answer Below");
       $("#submit").prop('disabled', false);
+      $("#answerCheck h4").html("Waiting for answer...")
+      $("#answerCheck").css('background-color', "white");
     }
 
     socket.on("timerUpdate", function(t){
