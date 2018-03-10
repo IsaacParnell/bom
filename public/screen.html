@@ -42,6 +42,10 @@
     currentq = q;
   });
 
+  socket.on("roundHotseat", function(data){
+    //TODO
+  })
+
   socket.on("endRound", function(){
     $("#display").html(defaultMsg)
   });

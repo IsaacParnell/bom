@@ -5,12 +5,13 @@
     <link rel="stylesheet" type="text/css" href="host.css">
 
     <nav class="col">
-      <h1 style="font-size: 20px;"> BOM_show_host_v1 </h1>
+      <h1 style="font-size: 20px;"> BOM_show_host_v1.7 </h1>
       <h3 style="font-size: 15px;"> by matt hilton </h3>
       <ul>
         <li onclick="round()"> ROUND </li>
         <li onclick="score()"> SCORE </li>
         <li onclick="comm()"> COMM </li>
+        <li onclick="hot()"> HOTSEAT </li>
       </ul>
     </nav>
   </head>
@@ -151,6 +152,49 @@
         </section>
     </div>
 
+    <div id="hot">
+      <section id="grade" class="col">
+        <h1> GROUP </h1>
+
+        <ul id="hotseatGroups">
+          <li id="8"> YR8 </li>
+          <li id="10"> YR10 </li>
+          <li id="12"> YR12 </li>
+        </ul>
+      </section>
+
+      <section id="question" class="col">
+        <h1> QUESTION </h1>
+
+        <ul id="hotseatQuestions">
+        </ul>
+      </section>
+
+      <section id="controlHotSeat" class="col">
+        <h1> INFO </h1>
+
+        <button id="startHOT"> START HOT SEAT </button>
+        <button id="cancelHOT"> CANCEL ROUND </button>
+
+        <h2> Chosen Answer: </h2>
+        <h3 id="answerHOTSEAT"> </h3>
+
+        <h2> Accepted Answer: </h2>
+        <h3 id="acceptedHOTSEAT"> </h3>
+
+        <button id="revealHOT"> REVEAL </button>
+
+        <h3> Group: </h3>
+        <p id="groupHOTSEAT"> </p>
+
+        <h3> Question: </h3>
+        <p id="questionHOTSEAT"> </p>
+
+        <h1 id="timerHOTSEAT" style="color: red;"> 0s</h1>
+
+      </section>
+    </div>
+
   </body>
 
   <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
@@ -220,6 +264,7 @@
     $("#round").css("display", "none");
     $("#score").css("display", "inherit");
     $("#comm").css("display", "none");
+    $("#hot").css("display", "none")
   }
 
   function round(){
@@ -227,14 +272,22 @@
     $("#round").css("display", "inherit");
     $("#score").css("display", "none");
     $("#comm").css("display", "none");
+    $("#hot").css("display", "none")
   }
 
   function comm(){
     $("#score").css("display", "none");
     $("#round").css("display", "none");
     $("#comm").css("display", "inherit");
+    $("#hot").css("display", "none")
   }
 
+  function hot(){
+    $("#score").css("display", "none");
+    $("#round").css("display", "none");
+    $("#comm").css("display", "none");
+    $("#hot").css("display", "inherit")
+  }
 
   </script>
 </html>

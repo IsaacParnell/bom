@@ -80,6 +80,35 @@ io.on('connection', function(socket){
       });
   });
 
+  //start a new HOTSEAT round
+  socket.on('newHotseat', function(res){
+      io.emit("roundHotseat", res); //TODO
+
+      //all hotseat questions are 30 seconds
+      var t = 30;
+      var timer = setInterval(function(){
+        t--;
+        io.emit("timerUpdate", t);
+        console.log(t);
+
+        if(t == 0){
+          console.log("timer finished")
+          clearInterval(timer);
+          io.emit("endRound")
+          io.emit("endHotseat") //TODO
+        }
+      }, 1000)
+
+      socket.on('cancelRound', function(){
+        io.emit("endRound")
+        io.emit("endHotseat")
+
+        console.log("round cancelled by host!")
+        clearInterval(timer);
+        io.emit("timerUpdate", 0);
+      });
+  });
+
 
 
   socket.on('houseUpdate', function(house){

@@ -62,6 +62,7 @@ function incorrect(house){
 
 socket.on('scores', function(scores){
   $("#graham #score").html(scores["g"]);
+
   $("#elliot #score").html(scores["e"]);
   $("#wesley #score").html(scores["w"]);
   $("#booth #score").html(scores["b"]);
@@ -95,6 +96,7 @@ socket.on("round", function(res){
 
 socket.on("timerUpdate", function(t){
   $("#timer").html(t);
+  $("#timerHOTSEAT").html(t);
 });
 
 socket.on("ans", function(res){
@@ -147,4 +149,90 @@ $("#booth #submitedit").click(function(){
   var editedScore = $("#b_editscore").val()
   $("#b_editscore").val('');
   socket.emit("editScore", {house: "b", score: editedScore});
+})
+
+
+//HOTSEAT FUNCTIONS and VARIABLES
+
+$("#hotseatGroups li").click(function(){
+  var group = $(this).attr('id');
+  $("#groupHOTSEAT").html(group)
+  $("#hotseatQuestions").empty();
+  $.ajax({
+    url: 'hotseatQuestions.csv',
+    dataType: 'text',
+  }).done(function(data){
+    data = data.split(/\r\n|\n/);
+    for(var i = 0; i < data.length; i++){
+      data[i] = data[i].split(",");
+    }
+    for(var i = 0; i < data.length; i++){
+      var item = data[i]
+      //cycles through all the questions looking for questions from that group.
+      if(item[0] == group){
+        $("#question #hotseatQuestions").append("<li>" + item[1] + "</li>");
+        $("#question #hotseatQuestions li").click(function(){
+          selectQuestion($(this).text())
+        })
+      }
+    }
+  })
+})
+
+var possibleHotseat = [];
+var acceptedHotseat = "";
+var questionHotseat = "";
+
+function selectQuestion(q){
+  //console.log(q)
+
+  //reset values
+  possibleHotseat = [];
+  acceptedHotseat = "";
+  questionHotseat = "";
+
+  questionHotseat = q;
+
+  $.ajax({
+    url: 'hotseatQuestions.csv',
+    dataType: 'text',
+  }).done(function(data){
+    data = data.split(/\r\n|\n/);
+    for(var i = 0; i < data.length; i++){
+      data[i] = data[i].split(",");
+    }
+
+    for(var i = 0; i < data.length; i++){
+      var item = data[i]
+      if(item[1] == q){
+        //console.log(item)
+        for(var k = 0; k < 4; k++){
+          possibleHotseat.push(item[k+2])
+        }
+        //right answer is always the first answer in the list (randomised later)
+        acceptedHotseat = item[2]
+      }
+    }
+
+
+    console.log("accepted: " + acceptedHotseat)
+    console.log("possible: " + possibleHotseat)
+    console.log("Question: " + questionHotseat)
+
+    //update display
+    $("#questionHOTSEAT").text(questionHotseat)
+    $("#acceptedHOTSEAT").text(acceptedHotseat)
+  })
+}
+
+$("#startHOT").click(function(){
+  //start a new hotseat round
+  console.log("starting a new hotseat round!!!!")
+  socket.emit("newHotseat", [questionHotseat, possibleHotseat, acceptedHotseat])
+})
+
+$("#cancelHOT").click(function(){
+  //cancel HOTSEAT roundHotseat
+  console.log("cancelling hotseat")
+  socket.emit("cancelRound")
 })

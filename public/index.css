@@ -21,6 +21,22 @@ h3 {
   width: 500px;
 }
 
+#answers {
+  width: 500px;
+  height: 300px;
+}
+#answers div {
+  width: 250px;
+  height: 150px;
+  color: black;
+  background-color: grey;
+  display: block;
+  float: left;
+}
+
+#answerBox p {
+  padding: 5px;
+}
 textarea {
   width: 500px;
   height: 300px;

@@ -1,0 +1,96 @@
+<html>
+  <head>
+    <title> HOT SEAT HOST </title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  </head>
+
+  <body>
+    <h1 style="background-color: #f2a2ee"> HOT SEAT - HOST </h1>
+
+    <h2 id="question"> No Question Yet </h1>
+        <h2 id="instructions">  </h1>
+
+      <div id="answers">
+    <div id="0"> <p> No Answer</p> </div> <div id="1"> <p>No Answer </p>  </div>
+    <div id="2">  <p> No Answer</p> </div> <div id="3">  <p>No Answer </p> </div>
+  </div>
+
+    <button id="submit" disabled> SUBMIT ANSWER </button>
+
+    <div id="answerCheck"> <h4> Waiting to start round... </h4> </div>
+  </body>
+
+  <script>
+    var socket = io()
+
+
+    function endRound(){
+      //TODO make
+      //TODO update answers to null
+
+      $("#answers").children().each(function(){
+        $(this).html("<p> </p>")
+      })
+
+      $("#question").html("No Question Yet");
+      $("#instructions").html("Waiting for next round to start...");
+
+      $("#answerCheck").css('background-color', "white");
+      $("#answerCheck h4").html("Waiting for answer check...")
+    }
+
+    socket.on("clearTeamDisplay", function(){
+      console.log("clearing display")
+
+      //TODO clear answers
+
+      $("#answerCheck").css('background-color', "white");
+      $("#answerCheck h4").html("Waiting to start round...")
+    });
+
+
+
+    socket.on("roundHotseat", function(data){
+      //TODO update answer displays
+      //struct: data[question, possible , accetped answers]
+      console.log(data)
+      $("#question").html(data[0]);
+
+      $("#instructions").html("CORRECT ANSWER: " + data[2])
+      //adds answers randomly into 4 boxes
+      var possible = [data[1][0],data[1][1],data[1][2],data[1][3]]
+      //randomises the order of the answers
+      possible.sort(function() { return 0.5 - Math.random() });
+
+      //update answers onscreen
+      $("#answers").children().each(function(){
+        var num = $(this).attr('id');
+        $(this).html("<p>" +  possible[num] + "</p>")
+        $(this).click(function(){
+          hotseatSubmit($(this).text());
+        })
+      })
+
+      $("#")
+
+      $("#answerCheck h4").html("Waiting for answer...")
+      $("#answerCheck").css('background-color', "white");
+    });
+
+    socket.on("timerUpdate", function(t){
+        $("#answerCheck h4").html(t + " seconds remaining");
+    });
+
+    socket.on("endRound", function(){
+      //TODO endround hotseat
+      console.log("round ended");
+      endRound();
+    });
+
+    function hotseatSubmit(){
+        //TODO
+    }
+  </script>
+</html>

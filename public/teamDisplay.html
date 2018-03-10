@@ -116,6 +116,26 @@
       $("h1").html('BATTLE OF THE MINDS <i id="icon">')
     })
 
+    ///HOTSEAT STUFF ------------------
+    socket.on("roundHotseat", function(){
+      $("#icon")
+      .removeClass()
+      .css('display', 'none')
+
+      disableTime = true;
+      $("h1").html("MR SMITH'S HOTSEAT")
+
+      
+    })
+
+    socket.on("endHotseat", function(){
+      $("#icon")
+      .removeClass()
+      .css('display', 'none')
+      disableTime = false;
+      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
+    })
+
 
     </script>
   </body>
