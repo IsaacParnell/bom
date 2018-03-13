@@ -2,7 +2,7 @@
   <head>
     <title> BATTLE OF THE MINDS </title>
     <link rel="stylesheet" type="text/css" href="index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"> </script>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   </head>
 
@@ -52,7 +52,6 @@
     socket.on("correct", function(h){
       if(h.toUpperCase() == house) {
         console.log("previous answer correct")
-        //TODO something else
         $("#answerCheck").css('background-color', "#33ff33");
         $("#answerCheck h4").html("Answer Marked as Correct!")
       }
@@ -61,7 +60,6 @@
     socket.on("incorrect", function(h){
       if(h.toUpperCase() == house) {
         console.log("previous answer incorrect")
-        //TODO something else
         $("#answerCheck").css('background-color', "#ff3333");
         $("#answerCheck h4").html("Answer Marked as Incorrect")
       }
@@ -92,6 +90,20 @@
 
     socket.on("timerUpdate", function(t){
         $("#submit").html("SUBMIT ANSWER ("+t+")");
+        $("#answerCheck h4").html(t + " seconds remaining");
+
+        //flash red if below 10 seconds
+        if(t == 0){
+          $("#answerCheck").css("background-color", "white")
+        } else if(t < 5){
+          $("#answerCheck").css("background-color", "red")
+        } else if(t < 10){
+          if(t % 2 == 0){
+            $("#answerCheck").css("background-color", "red")
+          } else {
+            $("#answerCheck").css("background-color", "white")
+          }
+        }
     });
 
     socket.on("endRound", function(){

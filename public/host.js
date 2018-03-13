@@ -229,10 +229,30 @@ $("#startHOT").click(function(){
   //start a new hotseat round
   console.log("starting a new hotseat round!!!!")
   socket.emit("newHotseat", [questionHotseat, possibleHotseat, acceptedHotseat])
+
+  //clear previous round
+  $("#answerHOTSEAT").css("color", "white")
+  $("#answerHOTSEAT").text("")
 })
 
 $("#cancelHOT").click(function(){
   //cancel HOTSEAT roundHotseat
   console.log("cancelling hotseat")
   socket.emit("cancelRound")
+})
+
+socket.on("hotseatResult", function(result){
+  //result will be true if they got it right
+  if(result){
+    $("#answerHOTSEAT").text("Correct")
+    $("#answerHOTSEAT").css("color", "green")
+  } else {
+    $("#answerHOTSEAT").text("Incorrect")
+    $("#answerHOTSEAT").css("color", "red")
+  }
+})
+
+$("#revealHOT").click(function(){
+  console.log("revealing hotseat answer")
+  socket.emit("revealAnswerHOTSEAT");
 })

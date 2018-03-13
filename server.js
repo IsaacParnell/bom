@@ -82,14 +82,13 @@ io.on('connection', function(socket){
 
   //start a new HOTSEAT round
   socket.on('newHotseat', function(res){
-      io.emit("roundHotseat", res); //TODO
-
+      io.emit("roundHotseat", res);
       //all hotseat questions are 30 seconds
       var t = 30;
-      var timer = setInterval(function(){
+      timer = setInterval(function(){
         t--;
         io.emit("timerUpdate", t);
-        console.log(t);
+        console.log(t + " hotseat");
 
         if(t == 0){
           console.log("timer finished")
@@ -107,9 +106,35 @@ io.on('connection', function(socket){
         clearInterval(timer);
         io.emit("timerUpdate", 0);
       });
+
+
+
   });
 
+  //when a hotseat answer is submitted
+  socket.on('submitHotseat', function(req){
+    clearInterval(timer);
+    io.emit("timerUpdate", 0);
 
+    console.log("recieved hot seat answer: " + req.submitted);
+
+    io.emit("endRound")
+    io.emit("endHotseat")
+
+    if(req.submitted == req.answer){
+      console.log("correct answer!")
+      //true if correct, false if incorrect
+      io.emit("hotseatResult", true)
+    } else {
+      io.emit("hotseatResult", false)
+      console.log("incorrect answer :(")
+    }
+  });
+
+  socket.on("revealAnswerHOTSEAT", function(){
+    console.log("revealing hotseat answer")
+    io.emit("revealAnswerHOTSEAT");
+  })
 
   socket.on('houseUpdate', function(house){
     switch(house){

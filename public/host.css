@@ -126,6 +126,7 @@ button:hover {
 
 #questionSelection li {
   font-size: 15px;
+  height: auto;
 }
 
 #sendMessage {

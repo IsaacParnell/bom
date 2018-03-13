@@ -176,7 +176,7 @@
         <button id="startHOT"> START HOT SEAT </button>
         <button id="cancelHOT"> CANCEL ROUND </button>
 
-        <h2> Chosen Answer: </h2>
+        <h2> Contestant was: </h2>
         <h3 id="answerHOTSEAT"> </h3>
 
         <h2> Accepted Answer: </h2>
@@ -198,7 +198,7 @@
   </body>
 
   <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"> </script>
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
   <script src="host.js"></script>
 
@@ -243,7 +243,6 @@
            $("#questionList li").click(function(){
              // update the question display
              $("#questionDisplay").html($(this).text());
-             $("#display #acceptedAnswer").val
            });
          }
       });

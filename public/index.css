@@ -25,17 +25,24 @@ h3 {
   width: 500px;
   height: 300px;
 }
-#answers div {
+
+#answers button {
   width: 250px;
   height: 150px;
-  color: black;
-  background-color: grey;
+
+  color: purple;
+  background-color: rgba(20,20,20,1);
+
+  border: white;
+  border-width: medium;
+
   display: block;
   float: left;
 }
 
 #answerBox p {
   padding: 5px;
+  color: black;
 }
 textarea {
   width: 500px;
