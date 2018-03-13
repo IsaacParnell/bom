@@ -2,7 +2,7 @@
 <title> BATTLE OF THE MINDS </title>
 
 <div id="main">
-<h1 id="display"> BATTLE OF THE MINDS </h1>
+  <h1> BATTLE OF THE MINDS </h1>
 </div>
 <div id="hotseatDisplay">
   <button id="0"> <p> </p> </button> <button id="1"> <p> </p>  </button>
@@ -12,11 +12,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.js"></script>
+
 <style>
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900');
   * {
-    background-color: black;
     font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  body {
+    background-color: black;
   }
 
   #hotseatDisplay button {
@@ -34,8 +38,9 @@
 
   #hotseatDisplay button p {
     color: black;
-    font-size: 200%;
+    font-size: 3.5vh;
     background-color: white;
+    border: none;
   }
 
   #hotseatDisplay {
@@ -49,32 +54,33 @@
   }
 
   #main {
-    top: 50%;
-    left: 50%;
     position: absolute;
-    align-items: center;
-    width: 50%;
-    height: 50%;
-    transform: translate(-50%, -50%);
-  }
-  #display {
-    background-color: white;
-    color: black;
+    top: 30%;
 
+
+    width: 70%;
+    height: 40%;
 
     text-align: center;
+    margin-left: 15%;
+    margin-right: 15%;
 
+    display: block;
 
-    padding: 40px;
-
-    margin: 0px;
+    font-size: 1.7vh;
+  }
+  #main h1 {
+    background-color: white;
+    color: black;
+    margin: 20px;
+    font-size: 4em;
+    line-height: 1.45;
   }
 
 </style>
 
 <script>
 
-jQuery("#display").fitText();
 
   var socket = io();
   var currentq = "";
@@ -105,26 +111,25 @@ jQuery("#display").fitText();
   })
 
   socket.on("endRound", function(){
-    $("#display").html(defaultMsg)
+    $("#main h1").html(defaultMsg)
     $("#hotseatDisplay button").css("display", "none")
     currentq = "";
-
   });
+
+  socket.on("hotseatResult", function(result){
+    //TODO
+  })
 
   socket.on("timerUpdate", function(t){
     //wil display the question until there are 15 seconds left...
+    jQuery("#display").fitText();
       if(t < 15 && t != 0){
-        $("#display")
-        .html(t)
-        .css("font-size", "1000%");
+        $("#main h1").html(t);
+        $("#hotseatDisplay button").css("display", "none")
       } else if(t == 0){
-        $("#display")
-        .html(defaultMsg)
-        .css("font-size", "500%");
+        $("#main h1").html(defaultMsg);
       } else {
-        $("#display")
-        .html(currentq)
-        .css("font-size", "500%");;
+        $("#main h1").html(currentq);
       }
   });
 

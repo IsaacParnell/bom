@@ -76,7 +76,7 @@ socket.on("round", function(res){
     data = data.split(/\r\n|\n/);
 
     for(var i = 0; i < data.length; i++){
-      data[i] = data[i].split(",");
+      data[i] = data[i].split(",#");
     }
     for(var i = 0; i < data.length; i++){
       item = data[i]
@@ -164,7 +164,7 @@ $("#hotseatGroups li").click(function(){
   }).done(function(data){
     data = data.split(/\r\n|\n/);
     for(var i = 0; i < data.length; i++){
-      data[i] = data[i].split(",");
+      data[i] = data[i].split(",#");
     }
     for(var i = 0; i < data.length; i++){
       var item = data[i]
@@ -199,7 +199,7 @@ function selectQuestion(q){
   }).done(function(data){
     data = data.split(/\r\n|\n/);
     for(var i = 0; i < data.length; i++){
-      data[i] = data[i].split(",");
+      data[i] = data[i].split(",#");
     }
 
     for(var i = 0; i < data.length; i++){
