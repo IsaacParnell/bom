@@ -4,10 +4,7 @@
 <div id="main">
   <h1> BATTLE OF THE MINDS </h1>
 </div>
-<div id="hotseatDisplay">
-  <button id="0"> <p> </p> </button> <button id="1"> <p> </p>  </button>
-  <button id="2">  <p></p> </button> <button id="3">  <p> </p> </button>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
@@ -34,23 +31,6 @@
       text-align: center;
 
       background-color: white;
-  }
-
-  #hotseatDisplay button p {
-    color: black;
-    font-size: 3.5vh;
-    background-color: white;
-    border: none;
-  }
-
-  #hotseatDisplay {
-    width: 70%;
-    height: 20%;
-
-    position: absolute;
-
-    bottom: 0;
-    left: 15%;
   }
 
   #main {
@@ -86,46 +66,25 @@
   var currentq = "";
   var defaultMsg = "BATTLE OF THE MINDS"
 
+  socket.on("loadScreen", function(name){
+    window.location.href = name;
+  });
+
   socket.on("round", function(q){
     console.log(q)
     currentq = q;
   });
 
-  socket.on("roundHotseat", function(data){
-    console.log(data)
-    currentq = data[0];
-
-    //update answer display on big screen
-    var possible = [data[1][0],data[1][1],data[1][2],data[1][3]]
-    //randomises the order of the answers
-    possible.sort(function() { return 0.5 - Math.random() });
-
-    console.log(possible)
-    //update answers onscreen
-    $("#hotseatDisplay").children().each(function(){
-      var num = $(this).attr('id');
-      $(this).html("<p>" +  possible[num] + "</p>")
-    })
-
-    $("#hotseatDisplay button").css("display", "block");
-  })
-
   socket.on("endRound", function(){
     $("#main h1").html(defaultMsg)
-    $("#hotseatDisplay button").css("display", "none")
     currentq = "";
   });
-
-  socket.on("hotseatResult", function(result){
-    //TODO
-  })
 
   socket.on("timerUpdate", function(t){
     //wil display the question until there are 15 seconds left...
     jQuery("#display").fitText();
       if(t < 15 && t != 0){
         $("#main h1").html(t);
-        $("#hotseatDisplay button").css("display", "none")
       } else if(t == 0){
         $("#main h1").html(defaultMsg);
       } else {

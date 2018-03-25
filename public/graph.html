@@ -14,6 +14,10 @@
 <script>
   var socket = io();
 
+  socket.on("loadScreen", function(name){
+    window.location.href = name;
+  });
+
   socket.on("scores", function(score){
     //update the chart datasets to new score values
     myChart.data.datasets[0].data[0] = score["g"];

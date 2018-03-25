@@ -4,6 +4,10 @@ $("#clearTeamDisplay").click(function(){
   socket.emit("clearTeamDisplay")
 });
 
+$("#clearTeamDisplay2").click(function(){
+  socket.emit("clearTeamDisplay")
+});
+
 $("#30").click(function(){
   newRound(30, $("#questionDisplay").text());
 });
@@ -151,8 +155,22 @@ $("#booth #submitedit").click(function(){
   socket.emit("editScore", {house: "b", score: editedScore});
 })
 
+$("#showGraph").click(function(){
+  socket.emit("loadScreen", "graph.html")
+})
+
+$("#startSpinner").click(function(){
+  socket.emit("loadScreen", "spinner.html")
+})
 
 //HOTSEAT FUNCTIONS and VARIABLES
+$("#loadHotSeat").click(function(){
+  socket.emit("loadScreen", "hotseatScreen.html");
+})
+
+$("#loadScreen").click(function(){
+  socket.emit("loadScreen", "screen.html");
+})
 
 $("#hotseatGroups li").click(function(){
   var group = $(this).attr('id');
@@ -243,7 +261,7 @@ $("#cancelHOT").click(function(){
 
 socket.on("hotseatResult", function(result){
   //result will be true if they got it right
-  if(result){
+  if(result.result){
     $("#answerHOTSEAT").text("Correct")
     $("#answerHOTSEAT").css("color", "green")
   } else {

@@ -1,0 +1,137 @@
+<html>
+  <title> SPINNER </title>
+
+  <body onresize="resizeCanvas()">
+    <canvas id="canvas">
+      Canvas not supported
+    </canvas>
+
+    <h1 id="display"> </h1>
+  </body>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900');
+
+  * {
+    background-color: black;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  canvas {
+    z-index: 1;
+  }
+
+  #display {
+    background-color: black;
+    color: white;
+    position: absolute;
+    width: 40%;
+    height: 10%;
+
+    text-align: center;
+
+    font-size: 2vh;
+    bottom: 45%;
+    margin-left: 30%;
+  }
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="winwheel.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.js"></script>
+<script>
+  var socket = io();
+
+  jQuery("#display").fitText();
+
+  $("body").css("overflow", "hidden");
+  socket.on("loadScreen", function(name){
+    window.location.href = name;
+  });
+
+  var myWheel = new Winwheel({
+    'textOrientation' : 'curved',
+    'textAlignment'  : 'outer',
+    'lineWidth' : 50,
+    'numSegments'    : 4,
+    'segments'       :
+
+    [
+        {'fillStyle' : '#33ff33', 'text' : 'Elliot'},
+        {'fillStyle' : '#ffff33', 'text' : 'Wesley'},
+        {'fillStyle' : '#3385ff', 'text' : 'Booth'},
+        {'fillStyle' : '#ff3333', 'text' : 'Graham'}
+    ],
+    'animation' :
+    {
+        'type'     : 'spinToStop',
+        'duration' : 10,
+        'spins'    : 16,
+        'callbackFinished' : 'display()',
+        'callbackAfter' : 'test()',
+    },
+
+    'pointerGuide' :        // Turn pointer guide on.
+        {
+            'display'     : true,
+            'strokeStyle' : 'red',
+            'lineWidth'   : 3
+        }
+});
+
+resizeCanvas();
+
+setTimeout(function(){
+  myWheel.startAnimation();
+  console.log("spinning wheel!")
+},2000);
+
+function test(){
+  var t = myWheel.getIndicatedSegment();
+  $("#display").text(t.text)
+}
+function display(){
+  var selection = myWheel.getIndicatedSegment();
+  console.log(selection)
+  $("#display")
+  .text(selection.text)
+  .css("color", selection.fillStyle)
+}
+function resizeCanvas()
+{
+	// Get the canvas
+	var canvas = document.getElementById('canvas');
+
+	// Get width of window.
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+
+	// Assuming only the width will change to be responsive.
+	canvas.width = w
+  canvas.height = h
+
+	// To ensure the wheel stays inside the canvas, work out what is the smaller
+	// value between width and height, and set the outerRadius to half of that.
+	if (w < h) {
+		myWheel.outerRadius = (w / 2);
+	} else {
+		myWheel.outerRadius = (h / 2);
+	}
+
+  myWheel.innerRadius = myWheel.outerRadius - 500;
+	// In order to keep the wheel in the center of the canvas the centerX and
+	// centerY need to be set to the middle point of the canvas.
+	myWheel.centerX = (canvas.width / 2);
+	myWheel.centerY = (canvas.height / 2);
+
+	// Other possible TODO
+	// - Alter the font size.
+	// - Adjust inner radius if the wheel has one.
+
+	// Re-draw the wheel.
+	myWheel.draw();
+}
+</script>
+
+</html>

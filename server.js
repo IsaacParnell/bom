@@ -111,6 +111,10 @@ io.on('connection', function(socket){
 
   });
 
+  socket.on("loadScreen", function(s){
+      io.emit("loadScreen", s)
+  });
+
   //when a hotseat answer is submitted
   socket.on('submitHotseat', function(req){
     clearInterval(timer);
@@ -124,9 +128,9 @@ io.on('connection', function(socket){
     if(req.submitted == req.answer){
       console.log("correct answer!")
       //true if correct, false if incorrect
-      io.emit("hotseatResult", true)
+      io.emit("hotseatResult", {result: true, answer: req.answer})
     } else {
-      io.emit("hotseatResult", false)
+      io.emit("hotseatResult", {result: false, answer: req.answer})
       console.log("incorrect answer :(")
     }
   });

@@ -1,0 +1,171 @@
+<html>
+<title> HOT SEAT </title>
+
+
+  <div id="main">
+    <h3 id="question"> Waiting ... </h3>
+
+    <div id="answersBox">
+      <ul id="possibleAnswers">
+        <li id="0">  </li> <li id="1">  </li> <li id="2">  </li> <li id="3">  </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <h1 id="title"> MR SMITH'S HOT SEAT </h1>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"> </script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.js"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900');
+  * {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  body {
+    background-color: black;
+  }
+
+  #title {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    text-align: center;
+    background-color: white;
+
+    font-size: 5vh;
+  }
+
+  #main {
+    background-color: white;
+    padding-top: 5px;
+
+
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
+
+  #question {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-size: 5vh;
+  }
+
+  #answersBox ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    height: 30%;
+  }
+
+  #answersBox ul li {
+    float: left;
+    width: 50%;
+    height: 50%;
+
+    text-align: center;
+    font-size: 3vh;
+
+    background-color: black;
+    color: white;
+  }
+
+
+</style>
+
+<script>
+
+
+  var socket = io();
+  var currentq = "";
+  var defaultMsg = "MR SMITH'S HOT SEAT"
+
+  var result = {};
+$("body").css("overflow", "hidden");
+
+  socket.on("loadScreen", function(name){
+    window.location.href = name;
+  });
+
+  socket.on("round", function(q){
+    console.log(q)
+    currentq = q;
+  });
+
+  socket.on("roundHotseat", function(data){
+    console.log(data)
+    currentq = data[0];
+
+    $("#question").text(currentq)
+    //update answer display on big screen
+    var possible = [data[1][0],data[1][1],data[1][2],data[1][3]]
+    //randomises the order of the answers
+    possible.sort(function() { return 0.5 - Math.random() });
+
+    console.log(possible)
+    //update answers onscreen
+    $("#possibleAnswers").children().each(function(){
+      var num = $(this).attr('id');
+      $(this).html("<p>" +  possible[num] + "</p>")
+    })
+  })
+
+
+
+  socket.on("endRound", function(){
+    //clean up display on round end
+    $("#title").html(defaultMsg)
+
+    $("#possibleAnswers").children().each(function(){
+      var num = $(this).attr('id');
+      $(this).html("<p></p>")
+    })
+
+    currentq = "";
+    $("#question").text("Waiting ...")
+    console.log("round ended!")
+  });
+
+  socket.on("hotseatResult", function(r){
+    //saves result - waits for host to press reveal button
+    result = r;
+  });
+
+  socket.on("revealAnswerHOTSEAT", function(){
+    //this function actually reveals it on screen.
+    if(result.result == true){
+      $("#main").css("background-color", "#33ff33")
+      $("#question").text("Correct! - Answer: " + result.answer)
+    } else {
+      $("#main").css("background-color", "#ff3333")
+      $("#question").text("Incorrect - Answer: " + result.answer)
+    }
+
+
+  });
+
+  socket.on("clearTeamDisplay", function(){
+    $("#main").css("background-color", "white")
+    $("#question").text("Waiting ...")
+  });
+
+
+  socket.on("timerUpdate", function(t){
+
+    if(t != 0){
+      $("#title").text(t);
+    } else {
+      $("#main h1").html(defaultMsg);
+    }
+  });
+
+</script>
+
+</html>

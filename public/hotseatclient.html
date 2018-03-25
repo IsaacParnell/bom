@@ -110,7 +110,7 @@
 
     socket.on("revealAnswerHOTSEAT", function(){
       console.log("revealing hotseat result")
-      if(previousResult){
+      if(previousResult.result){
         $("#answerCheck").css("background-color", "#33ff33")
         $("#answerCheck h4").html("Answer Correct!")
       } else {

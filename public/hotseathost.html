@@ -12,10 +12,10 @@
     <h2 id="question"> No Question Yet </h2>
         <h2 id="instructions">  </h2>
 
-      <div id="answers">
-    <button id="0"> <p> </p> </button> <button id="1"> <p> </p>  </button>
-    <button id="2">  <p> </p> </button> <button id="3">  <p> </p> </button>
-  </div>
+    <div id="answers">
+        <button id="0"> <p> </p> </button> <button id="1"> <p> </p>  </button>
+        <button id="2">  <p> </p> </button> <button id="3">  <p> </p> </button>
+    </div>
 
     <div id="answerCheck"> <h4> Waiting to start round... </h4> </div>
   </body>
@@ -130,7 +130,7 @@
 
     socket.on("revealAnswerHOTSEAT", function(){
       console.log("revealing hotseat result")
-      if(previousResult){
+      if(previousResult.result){
         $("#answerCheck").css("background-color", "#33ff33")
         $("#answerCheck h4").html("Answer Correct!")
       } else {
