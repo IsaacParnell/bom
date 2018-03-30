@@ -142,13 +142,14 @@ $("body").css("overflow", "hidden");
 
   socket.on("revealAnswerHOTSEAT", function(){
     //this function actually reveals it on screen.
+    console.log(result)
     if(result.answer != undefined){
       if(result.result == true){
         $("#main").css("background-color", "#33ff33")
         $("#question").text("Correct! - Answer: " + result.answer)
       } else {
         $("#main").css("background-color", "#ff3333")
-        $("#question").text("Incorrect - Answer: " + result.answer)
+        $("#question").text("Incorrect - Correct Answer: " + result.answer)
       }
     }
   });
