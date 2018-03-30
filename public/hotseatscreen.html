@@ -100,6 +100,7 @@ $("body").css("overflow", "hidden");
   });
 
   socket.on("roundHotseat", function(data){
+    $("#main").css("background-color", "white")
     console.log(data)
     currentq = data[0];
 
@@ -122,6 +123,7 @@ $("body").css("overflow", "hidden");
   socket.on("endRound", function(){
     //clean up display on round end
     $("#title").html(defaultMsg)
+    $("#main").css("background-color", "white");
 
     $("#possibleAnswers").children().each(function(){
       var num = $(this).attr('id');
@@ -140,15 +142,15 @@ $("body").css("overflow", "hidden");
 
   socket.on("revealAnswerHOTSEAT", function(){
     //this function actually reveals it on screen.
-    if(result.result == true){
-      $("#main").css("background-color", "#33ff33")
-      $("#question").text("Correct! - Answer: " + result.answer)
-    } else {
-      $("#main").css("background-color", "#ff3333")
-      $("#question").text("Incorrect - Answer: " + result.answer)
+    if(result.answer != undefined){
+      if(result.result == true){
+        $("#main").css("background-color", "#33ff33")
+        $("#question").text("Correct! - Answer: " + result.answer)
+      } else {
+        $("#main").css("background-color", "#ff3333")
+        $("#question").text("Incorrect - Answer: " + result.answer)
+      }
     }
-
-
   });
 
   socket.on("clearTeamDisplay", function(){
