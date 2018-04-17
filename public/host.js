@@ -165,7 +165,7 @@ $("#startSpinner").click(function(){
 
 //HOTSEAT FUNCTIONS and VARIABLES
 $("#loadHotSeat").click(function(){
-  socket.emit("loadScreen", "hotseatScreen.html");
+  socket.emit("loadScreen", "hotseatscreen.html");
 })
 
 $("#loadScreen").click(function(){
