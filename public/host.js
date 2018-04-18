@@ -8,12 +8,12 @@ $("#clearTeamDisplay2").click(function(){
   socket.emit("clearTeamDisplay")
 });
 
-$("#30").click(function(){
-  newRound(30, $("#questionDisplay").text());
+$("#25").click(function(){
+  newRound(25, $("#questionDisplay").text());
 });
 
-$("#60").click(function(){
-  newRound(60, $("#questionDisplay").text());
+$("#35").click(function(){
+  newRound(35, $("#questionDisplay").text());
 });
 
 function newRound(timeLimit, questionText){
