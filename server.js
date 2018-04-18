@@ -5,7 +5,7 @@ var express = require('express');
     path = require('path');
 server.listen(process.env.PORT || 80);
 
-app.use("/", express.static(path.join(__dirname, 'public')));
+app.use("/", express.static(path.join(__dirname, 'public'),{index:false,extensions:['html']}));
 
 var scores = {};
 
