@@ -74,6 +74,10 @@
     console.log(q)
     currentq = q;
   });
+  
+  socket.on("showAnswer", function(answer){
+    $("#main h1").html(answer);
+  })
 
   socket.on("endRound", function(){
     $("#main h1").html(defaultMsg)
