@@ -159,6 +159,11 @@ $("#showGraph").click(function(){
   socket.emit("loadScreen", "graph.html")
 })
 
+$("showAnswer").click(function(){
+  var answer = $("#acceptedAnswer").html();
+  socket.emit("showAnswer", answer);
+});
+
 $("#startSpinner").click(function(){
   socket.emit("loadScreen", "spinner.html")
 })
