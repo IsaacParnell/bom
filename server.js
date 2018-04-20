@@ -43,6 +43,10 @@ io.on('connection', function(socket){
     io.emit('scores', scores)
     console.log(scores);
   });
+    
+   socket.on("showAnswer", function(answer){
+   io.emit("showAnswer", answer);
+   })
 
   socket.on("hostMessage", function(m){
     console.log("new message for host " + m);
