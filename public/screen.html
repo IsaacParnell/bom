@@ -74,9 +74,14 @@
     console.log(q)
     currentq = q;
   });
-  
+
   socket.on("showAnswer", function(answer){
     $("#main h1").html(answer);
+  })
+
+  socket.on("clearScreen", function(){
+    jQuery("#display").fitText();
+    $("#main h1").html(defaultMsg)
   })
 
   socket.on("endRound", function(){
@@ -87,7 +92,7 @@
   socket.on("timerUpdate", function(t){
     //wil display the question until there are 15 seconds left...
     jQuery("#display").fitText();
-      if(t < 15 && t != 0){
+      if(t < 10 && t != 0){
         $("#main h1").html(t);
       } else if(t == 0){
         $("#main h1").html(defaultMsg);

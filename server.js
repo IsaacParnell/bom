@@ -43,7 +43,7 @@ io.on('connection', function(socket){
     io.emit('scores', scores)
     console.log(scores);
   });
-    
+
    socket.on("showAnswer", function(answer){
    io.emit("showAnswer", answer);
    })
@@ -55,6 +55,11 @@ io.on('connection', function(socket){
   socket.on("clientMessage", function(m){
       console.log("new message for client: " + m);
       io.emit("clientMessage", m);
+  });
+
+  socket.on("clearScreen", function(){
+      io.emit("clearScreen");
+      console.log("clearing answer from screen")
   });
 
   socket.on("clearTeamDisplay", function(){

@@ -159,10 +159,19 @@ $("#showGraph").click(function(){
   socket.emit("loadScreen", "graph.html")
 })
 
-$("showAnswer").click(function(){
+$("#revealAnswerScreen").click(function(){
+  console.log("showing answers!")
+
+
   var answer = $("#acceptedAnswer").html();
   socket.emit("showAnswer", answer);
+
 });
+
+$("#clearScreen").click(function(){
+  console.log("clearing screen!")
+  socket.emit("clearScreen");
+})
 
 $("#startSpinner").click(function(){
   socket.emit("loadScreen", "spinner.html")
