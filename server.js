@@ -91,6 +91,7 @@ io.on('connection', function(socket){
 
   //start a new HOTSEAT round
   socket.on('newHotseat', function(res){
+
       io.emit("roundHotseat", res);
       //all hotseat questions are 30 seconds
       var t = 30;
@@ -106,6 +107,8 @@ io.on('connection', function(socket){
           io.emit("endHotseat") //TODO
         }
       }, 1000)
+
+
   });
 
   socket.on('cancelRound', function(){
