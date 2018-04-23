@@ -262,6 +262,7 @@ $("#startHOT").click(function(){
   console.log("starting a new hotseat round!!!!")
   socket.emit("newHotseat", [questionHotseat, possibleHotseat, acceptedHotseat])
 
+  $("#startHOT").attr("disabled", "disabled")
   //clear previous round
   $("#answerHOTSEAT").css("color", "white")
   $("#answerHOTSEAT").text("")
@@ -271,6 +272,12 @@ $("#cancelHOT").click(function(){
   //cancel HOTSEAT roundHotseat
   console.log("cancelling hotseat")
   socket.emit("cancelRound")
+  $("#startHOT").removeAttr("disabled")
+})
+
+socket.on('endHotseat', function(){
+  console.log("hotseat finished")
+  $("#startHOT").removeAttr("disabled")
 })
 
 socket.on("hotseatResult", function(result){

@@ -106,18 +106,15 @@ io.on('connection', function(socket){
           io.emit("endHotseat") //TODO
         }
       }, 1000)
+  });
 
-      socket.on('cancelRound', function(){
-        io.emit("endRound")
-        io.emit("endHotseat")
+  socket.on('cancelRound', function(){
+    io.emit("endRound")
+    io.emit("endHotseat")
 
-        console.log("round cancelled by host!")
-        clearInterval(timer);
-        io.emit("timerUpdate", 0);
-      });
-
-
-
+    console.log("round cancelled by host!")
+    clearInterval(timer);
+    io.emit("timerUpdate", 0);
   });
 
   socket.on("loadScreen", function(s){

@@ -130,6 +130,10 @@ button:hover {
   font-size: 20px;
 }
 
+#hot #startHOT:disabled {
+  background-color: grey;
+}
+
 #cancelRound {
   font-size: 30px;
   width: 500px;
