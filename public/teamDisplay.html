@@ -71,7 +71,9 @@
 
     socket.on("timerUpdate", function(t){
       if(!disableTime){
-        $("h1").html(t)
+        $("h1")
+          .html(t)
+          .css("font-size", "200px")
         console.log(t)
       }
     });
@@ -80,6 +82,7 @@
 
       if(h.toUpperCase() == house){
         $("h1").html('BATTLE OF THE MINDS <i id="icon">')
+        .css("font-size", "85px")
         disableTime = true;
         $("#icon")
         .css('display', 'inline')
@@ -93,6 +96,7 @@
 
       if(h.toUpperCase() == house){
         $("h1").html('BATTLE OF THE MINDS <i id="icon">')
+        .css("font-size", "85px")
         disableTime = true;
         $("#icon")
         .css('display', 'inline')
@@ -104,6 +108,7 @@
 
     socket.on("round", function(res){
       disableTime = false;
+      $("h1").css("font-size", "85px")
       $("#icon")
       .removeClass()
       .css('display', 'none')
@@ -113,7 +118,9 @@
       $("#icon")
       .removeClass()
       .css('display', 'none')
-      $("h1").html('BATTLE OF THE MINDS <i id="icon">')
+      $("h1")
+        .html('BATTLE OF THE MINDS <i id="icon">')
+      .css("font-size", "85px")
     })
 
     ///HOTSEAT STUFF ------------------
@@ -124,6 +131,7 @@
 
       disableTime = true;
       $("h1").html("MR SMITH'S HOTSEAT")
+      .css("font-size", "85px")
 
 
     })
