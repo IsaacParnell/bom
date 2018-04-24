@@ -111,14 +111,7 @@ io.on('connection', function(socket){
 
   });
 
-  socket.on('cancelRound', function(){
-    io.emit("endRound")
-    io.emit("endHotseat")
 
-    console.log("round cancelled by host!")
-    clearInterval(timer);
-    io.emit("timerUpdate", 0);
-  });
 
   socket.on("loadScreen", function(s){
       io.emit("loadScreen", s)
