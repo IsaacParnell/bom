@@ -51,4 +51,4 @@ It is pretty well set to only use 4 teams. No more no less. You could possibly r
 I made this in a period where I had just started using jQuery.
 I could have made the interface using React but at the time I wasn't too confident with it and I needed a method that I knew reliably so that if any problems occurred I wouldn't be left looking on stackoverflow for the answer in the middle of the show.
 
-Obviously if I wrote it again it would be very different but hey that's how learning works.
+So as it goes with large projects, the codebase is rather complicated, convoluted and messy. If you wish to fork it go ahead.
